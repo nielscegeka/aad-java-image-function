@@ -9,8 +9,8 @@
     <version>1.0.0</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -35,14 +35,49 @@
                 <artifactId>azure-functions-maven-plugin</artifactId>
                 <version>1.18.0</version>
                 <configuration>
-                    <resourceGroup>${env:AZURE_RG}</resourceGroup>
-                    <appName>${env:AZURE_FN_APP}</appName>
+                    <resourceGroup>${AZURE_RG}</resourceGroup>
+                    <appName>${AZURE_FN_APP}</appName>
                     <region>westeurope</region>
+
+                    <appServicePlanName>${AZURE_FN_APP}D</appServicePlanName>
+                    <appServicePlanResourceGroup>${AZURE_RG}</appServicePlanResourceGroup>
+                    <pricingTier>B1</pricingTier>
+
                     <runtime>
                         <os>windows</os>
-                        <javaVersion>21</javaVersion>
+                        <javaVersion>17</javaVersion>
                     </runtime>
+                    <appSettings>
+                        <property>
+                            <name>FUNCTIONS_WORKER_RUNTIME</name>
+                            <value>java</value>
+                        </property>
+                        <property>
+                            <name>AZURE_OPENAI_ENDPOINT</name>
+                            <value>https://your-service.openai.azure.com</value>
+                        </property>
+                        <property>
+                            <name>AZURE_OPENAI_KEY</name>
+                            <value>fake-openai-key</value>
+                        </property>
+                        <property>
+                            <name>AZURE_OPENAI_DALLE_DEPLOYMENT</name>
+                            <value>dalle-model</value>
+                        </property>
+                        <property>
+                            <name>API_VERSION</name>
+                            <value>2024-02-15-preview</value>
+                        </property>
+                    </appSettings>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>package-functions</id>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
