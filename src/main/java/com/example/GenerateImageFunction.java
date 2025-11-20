@@ -30,15 +30,14 @@ public class GenerateImageFunction {
 
     @FunctionName("generateImage")
     public HttpResponseMessage runFunction(
-            @HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION)
+            @HttpTrigger(name = "request", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION)
             HttpRequestMessage<Map<String, Object>> request, ExecutionContext context) {
         try {
-            Map<String, Object> body = request.getBody();
-            if (body == null || !body.containsKey("animal")) {
-               throw new BadRequestException("Function received invalid request body");
+            String animal = request.getQueryParameters().get("animal");
+            if (animal == null || animal.isBlank()) {
+               throw new BadRequestException("Missing query parameter 'animal'");
             }
 
-            String animal = (String) body.get("animal");
             ImageRequestDTO animalPayload = new ImageRequestDTO(animal);
             String payloadJson = objectMapper.writeValueAsString(animalPayload);
 
