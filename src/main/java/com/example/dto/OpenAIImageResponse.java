@@ -1,4 +1,4 @@
-package com.example.helpers;
+package com.example.dto;
 
 import java.util.List;
 

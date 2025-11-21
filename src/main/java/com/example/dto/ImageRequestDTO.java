@@ -1,4 +1,4 @@
-package com.example.helpers;
+package com.example.dto;
 
 public class ImageRequestDTO {
     public String prompt;

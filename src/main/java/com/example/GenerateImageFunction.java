@@ -1,10 +1,12 @@
 package com.example;
 
+import com.example.dto.AnimalData;
 import com.example.exception.BadRequestException;
 import com.example.exception.GenerationException;
+import com.example.helpers.BackupLoader;
 import com.example.helpers.ConfigLoader;
-import com.example.helpers.ImageRequestDTO;
-import com.example.helpers.OpenAIImageResponse;
+import com.example.dto.ImageRequestDTO;
+import com.example.dto.OpenAIImageResponse;
 import com.example.helpers.ResponseBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.*;
@@ -34,6 +36,17 @@ public class GenerateImageFunction {
             String animal = request.getQueryParameters().get("animal");
             if (animal == null || animal.isBlank()) {
                throw new BadRequestException("Missing query parameter 'animal'");
+            }
+
+            final Boolean DEV_MODE = Boolean.valueOf(ConfigLoader.get("DEV_MODE"));
+            if (DEV_MODE) {
+                AnimalData animalWithImage = BackupLoader.getAnimal(animal);
+                if (animalWithImage == null) {
+                    throw new BadRequestException("Animal not found");
+                }
+
+                String base64ToDataUrl = "data:image/png;base64," + animalWithImage.getImage_base64();
+                return responseBuilder.createResponse(request, HttpStatus.OK, base64ToDataUrl, true);
             }
 
             ImageRequestDTO animalPayload = new ImageRequestDTO(animal);

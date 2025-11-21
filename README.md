@@ -18,7 +18,7 @@ Voor het deployment zijn er verschillende stappen te gaan die vooraleer je de ma
 4. Ga naar de playgrounds en selecteer Images > Create a deployment.
 5. Selecteer dall-e 3 image, en kies de resource location (dit is sterk afhankelijk van je subscription free = 1 per dag!, vandaar ook de "dev mode")
 6. Eens je de API key en de url hiervan hebt zet deze in pom.xml (plugin) en de config.properties
-7. Run dit maven command mvn -X clean package azure-functions:package azure-functions:deploy -DAZURE_RG=<resource-group> -DAZURE_FN_APP=<function-name>
+7. Run dit maven commando: mvn -X clean package azure-functions:package azure-functions:deploy -DAZURE_RG=<resource-group> -DAZURE_FN_APP=<function-name>
 
 Resource-group is de verzameling van resources, 2e stap in de hiërarchie onder Subscriptions
 
@@ -35,6 +35,6 @@ B. Ga naar je Function > generateImage (Function Name) > Test/Run > Selecteer GE
 ? Kan je gebruik maken van een bestaande Storage Container ? Normaal wel, dit project is daar niet op voorzien omdat ik het nog niet gevonden heb.
 ? Waarom de Dev_mode ? Om de functie as-is te kunnen testen, door het onderstaande AI service probleem heb ik dit als backup bedacht.
 ? Waarom geen Spring Boot App ? Als we specifiek gebruik willen maken van Azure Functions voor deployment (kost, opzettijd, ...) is dit sneller en minder efficient dan Spring Boot.
-? Is dit een finaal product ? Nee, alles kan beter. Suggesties zijn ten alle tijden welkom.
+? Waarom update mijn Function niet na redeploy via plugin ? Azure gaat de function nooit 100% vervangen, herstarten is ook nodig.
 
 ! Let op als je een AI service verkeerd geconfigueerd, dit kan tot 48u duren tot de plek in bepaalde subscription tiers terug vrij is voor een nieuwe aan te maken !
