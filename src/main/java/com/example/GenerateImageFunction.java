@@ -49,17 +49,20 @@ public class GenerateImageFunction {
                 return responseBuilder.createResponse(request, HttpStatus.OK, base64ToDataUrl, true);
             }
 
-            ImageRequestDTO animalPayload = new ImageRequestDTO(animal);
+            final String DEPLOYMENT_NAME = ConfigLoader.get("AZURE_OPENAI_DALLE_DEPLOYMENT");
+            ImageRequestDTO animalPayload = new ImageRequestDTO(animal, DEPLOYMENT_NAME);
             String payloadJson = objectMapper.writeValueAsString(animalPayload);
 
-            HttpResponse<String> generationResponse = doGenerationRequest(payloadJson);
+            HttpResponse<String> generationResponse = doGenerationRequest(payloadJson, DEPLOYMENT_NAME);
             if (generationResponse.statusCode() != 200) {
                 throw new GenerationException(generationResponse.body());
             }
 
             OpenAIImageResponse response = objectMapper.readValue(generationResponse.body(), OpenAIImageResponse.class);
-            String base64encoded = response.data.getFirst().base64_json;
-            String base64ToDataUrl = "data:image/png;base64," + base64encoded;
+            if (response == null || response.data == null || response.data.isEmpty()) {
+                throw new GenerationException("Missing data from response body");
+            }
+            String base64ToDataUrl = "data:image/png;base64," + response.data.get(0).b64_json;
 
             return responseBuilder.createResponse(request, HttpStatus.OK, base64ToDataUrl, true);
         } catch (BadRequestException e) {
@@ -71,16 +74,15 @@ public class GenerateImageFunction {
         }
     }
 
-    private HttpResponse<String> doGenerationRequest(String payload) throws IOException, InterruptedException {
+    private HttpResponse<String> doGenerationRequest(String payload, final String DEPLOYMENT_NAME) throws IOException, InterruptedException {
         final String OPENAI_ENDPOINT = ConfigLoader.get("AZURE_OPENAI_ENDPOINT");
         final String OPENAI_KEY = ConfigLoader.get("AZURE_OPENAI_API_KEY");
-        final String DEPLOYMENT_NAME = ConfigLoader.get("AZURE_OPENAI_DALLE_DEPLOYMENT");
         final String API_VERSION = ConfigLoader.get("API_VERSION");
 
         URI uri = URI.create(OPENAI_ENDPOINT + "/openai/deployments/" + DEPLOYMENT_NAME + "/images/generations?api-version=" + API_VERSION);
         HttpRequest request = HttpRequest.newBuilder().uri(uri)
                 .header("Content-Type", "application/json")
-                .header("api-key", OPENAI_KEY)
+                .header("Authorization", "Bearer " + OPENAI_KEY)
                 .POST(HttpRequest.BodyPublishers.ofString(payload))
                 .build();
 

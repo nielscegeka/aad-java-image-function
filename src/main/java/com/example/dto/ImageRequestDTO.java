@@ -4,14 +4,19 @@ public class ImageRequestDTO {
     public String prompt;
     public String model;
     public String size;
+    public String style;
+    public String quality;
     public String response_format;
     public Integer n;
 
-    public ImageRequestDTO(String animal) {
+    //https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/dall-e?view=foundry-classic&tabs=dalle-3
+    public ImageRequestDTO(String animal, String modelName) {
         this.prompt = "Create me an image of this animal: " + animal;
-        this.model = "gpt-image-1";
-        this.size = "512x512";
-        this.response_format = "base64_json";
+        this.model = modelName;
+        this.size = "1024x1024";
+        this.response_format = "b64_json";
+        this.style = "vivid";
+        this.quality = "standard";
         this.n = 1;
     }
 }

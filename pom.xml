@@ -54,7 +54,7 @@
                         </property>
                         <property>
                             <name>AZURE_OPENAI_ENDPOINT</name>
-                            <value>https://your-service.openai.azure.com</value>
+                            <value>https://your-service.cognitiveservices.azure.com</value>
                         </property>
                         <property>
                             <name>AZURE_OPENAI_KEY</name>
@@ -62,11 +62,11 @@
                         </property>
                         <property>
                             <name>AZURE_OPENAI_DALLE_DEPLOYMENT</name>
-                            <value>dalle-model</value>
+                            <value>your-model-name</value>
                         </property>
                         <property>
                             <name>API_VERSION</name>
-                            <value>2024-02-15-preview</value>
+                            <value>2024-02-01</value>
                         </property>
                     </appSettings>
                 </configuration>
