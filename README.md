@@ -4,8 +4,8 @@ Deze function is bedoeld om op Azure Functions losstaand te deployen via de aanw
 Deze function wordt aangeroepen door een externe Spring Boot Applicatie als deze bepaald heeft via EntraID dat deze de juiste permissies heeft.
 Achterliggend gaat deze function praten met een Azure OpenAI instantie die images genereert op basis van de userinput.
 
-Voorbeeld (Inkomend naar de function is een GET request, de request naar de OpenAI instantie is een POST request)
-Input: "prompt": "gorilla"
+Voorbeeld (Inkomend naar de function is een GET request, de request naar de OpenAI instantie is een POST request) <br>
+Input: "prompt": "gorilla" <br>
 Output: "data": [{ "image": "data:image/png;base64," + base64 }]
 
 Om deze te connecteren met de Spring Boot applicatie volstaat de juiste netwerk configuratie/permissies en het toevoegen van onderstaande URL in de configuratie van de Spring Boot App:
