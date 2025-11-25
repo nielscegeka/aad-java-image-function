@@ -27,15 +27,15 @@ Stappen die de plugin maakt
 2. Aanmaken van een Service Plan (Soort van organisatie van resources in functie van billing).
 3. Aanmaken van een Storage Container (Opslag van metrics en zaken in die aard, moest je een function hebben die persisteert zal het naar die storage container zijn).
    
-(Optioneel): Als je de functie losstaand van de flow wil testen kan je dat via Azure Portal. Kan je door volgende stappen:
-A. Ga naar je Function > API > Cors > Voeg https://portal.azure.com toe aan je Cors configuratie
-B. Ga naar je Function > generateImage (Function Name) > Test/Run > Selecteer GET als methode > Vul in query params 'animal' 'dog' in > Run
+(Optioneel): Als je de functie losstaand van de flow wil testen kan je dat via Azure Portal. Kan je door volgende stappen: <br>
+A. Ga naar je Function > API > Cors > Voeg https://portal.azure.com toe aan je Cors configuratie <br>
+B. Ga naar je Function > generateImage (Function Name) > Test/Run > Selecteer GET als methode > Vul in query params 'animal' 'dog' in > Run <br>
 
-? Kan je gebruik maken van een bestaand Service Plan ? Ja, binnen deze instructie/de demo wordt daar gebruik van gemaakt. Indien de plugin <function-name>-plan niet terugvindt als Service Plan wordt deze automatisch aangemaakt.
-? Kan je gebruik maken van een bestaande Storage Container ? Normaal wel, dit project is daar niet op voorzien omdat ik het nog niet gevonden heb.
-? Waarom de Dev_mode ? Om de functie as-is te kunnen testen, door het onderstaande AI service probleem heb ik dit als backup bedacht.
-? Waarom geen Spring Boot App ? Als we specifiek gebruik willen maken van Azure Functions voor deployment (kost, opzettijd, ...) is dit sneller en minder efficient dan Spring Boot.
-? Waarom update mijn Function niet na redeploy via plugin ? Azure gaat de function nooit 100% vervangen, herstarten is ook nodig.
+? Kan je gebruik maken van een bestaand Service Plan ? Ja, binnen deze instructie/de demo wordt daar gebruik van gemaakt. Indien de plugin <function-name>-plan niet terugvindt als Service Plan wordt deze automatisch aangemaakt. <br>
+? Kan je gebruik maken van een bestaande Storage Container ? Normaal wel, dit project is daar niet op voorzien omdat ik het nog niet gevonden heb. <br>
+? Waarom de Dev_mode ? Om de functie as-is te kunnen testen, door het onderstaande AI service probleem heb ik dit als backup bedacht. <br>
+? Waarom geen Spring Boot App ? Als we specifiek gebruik willen maken van Azure Functions voor deployment (kost, opzettijd, ...) is dit sneller en minder efficient dan Spring Boot. <br>
+? Waarom update mijn Function niet na redeploy via plugin ? Azure gaat de function nooit 100% vervangen, herstarten is ook nodig. <br>
 
-! Let op als je een AI service verkeerd geconfigueerd, dit kan tot 48u duren tot de plek in bepaalde subscription tiers terug vrij is voor een nieuwe aan te maken !
+! Let op als je een AI service verkeerd geconfigueerd, dit kan tot 48u duren tot de plek in bepaalde subscription tiers terug vrij is voor een nieuwe aan te maken ! <br>
 ! Binnen de restricties van de Azure Free Credits ($200 on signup) kan je maar gebruik maken van een Service Plan !
