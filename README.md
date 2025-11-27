@@ -9,7 +9,7 @@ Input: "prompt": "gorilla" <br>
 Output: "data": [{ "image": "data:image/png;base64," + base64 }]
 
 Om deze te connecteren met de Spring Boot applicatie volstaat de juiste netwerk configuratie/permissies en het toevoegen van onderstaande URL in de configuratie van de Spring Boot App:
-https://<dummy-function>.azurewebsites.api/api/generateImage
+https://'dummy-function'.azurewebsites.api/api/generateImage
 
 Voor het deployment zijn er verschillende stappen te gaan die vooraleer je de maven plugin kan laten draaien:
 1. Maak een resource groep aan (Organisatie van resources).
@@ -18,7 +18,7 @@ Voor het deployment zijn er verschillende stappen te gaan die vooraleer je de ma
 4. Ga naar de playgrounds en selecteer Images > Create a deployment.
 5. Selecteer dall-e 3 image, en kies de resource location (dit is sterk afhankelijk van je subscription free = 1 per dag!, vandaar ook de "dev mode")
 6. Eens je de API key en de url hiervan hebt zet deze in pom.xml (plugin) en de config.properties
-7. Run dit maven commando: mvn -X clean package azure-functions:package azure-functions:deploy -DAZURE_RG=<resource-group> -DAZURE_FN_APP=<function-name> -DAZURE_PLAN=<service-plan> -DAZURE_PLAN_RG=<resource-group>
+7. Run dit maven commando: mvn -X clean package azure-functions:package azure-functions:deploy -DAZURE_RG='resource-group' -DAZURE_FN_APP='function-name' -DAZURE_PLAN='service-plan' -DAZURE_PLAN_RG='resource-group'
 
 Resource-group is de verzameling van resources, 2e stap in de hiërarchie onder Subscriptions
 
@@ -31,7 +31,7 @@ Stappen die de plugin maakt
 A. Ga naar je Function > API > Cors > Voeg https://portal.azure.com toe aan je Cors configuratie <br>
 B. Ga naar je Function > generateImage (Function Name) > Test/Run > Selecteer GET als methode > Vul in query params 'animal' 'dog' in > Run <br>
 
-? Kan je gebruik maken van een bestaand Service Plan ? Ja, binnen deze instructie/de demo wordt daar gebruik van gemaakt. Indien de plugin <function-name>-plan niet terugvindt als Service Plan wordt deze automatisch aangemaakt. <br>
+? Kan je gebruik maken van een bestaand Service Plan ? Ja, binnen deze instructie/de demo wordt daar gebruik van gemaakt. Indien de plugin 'function-name'-plan niet terugvindt als Service Plan wordt deze automatisch aangemaakt. <br>
 ? Kan je gebruik maken van een bestaande Storage Container ? Normaal wel, dit project is daar niet op voorzien omdat ik het nog niet gevonden heb. <br>
 ? Waarom de Dev_mode ? Om de functie as-is te kunnen testen, door het onderstaande AI service probleem heb ik dit als backup bedacht. <br>
 ? Waarom geen Spring Boot App ? Als we specifiek gebruik willen maken van Azure Functions voor deployment (kost, opzettijd, ...) is dit sneller en minder efficient dan Spring Boot. <br>
