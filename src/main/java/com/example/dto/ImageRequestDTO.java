@@ -9,7 +9,8 @@ public class ImageRequestDTO {
     public String response_format;
     public Integer n;
 
-    //https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/dall-e?view=foundry-classic&tabs=dalle-3
+    //Oorsprong van de verschillende parameters in het request:
+    //https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/dall-e?view=foundry-classic&tabs=gpt-image-1
     public ImageRequestDTO(String animal, String modelName) {
         this.prompt = "Create me an image of this animal: " + animal;
         this.model = modelName;
